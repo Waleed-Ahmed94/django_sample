@@ -1,0 +1,33 @@
+{% extends 'usermanager/base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'usermanager/style.css' %}" />
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+
+
+{% block content %}
+
+{% if username %}
+<div class="jumbotron text-center ">
+    <h1>Welcome {{ username }} To Polls App</h1>
+</div>
+<div class="text-center">
+    <h2><a class="btn btn-primary btn-lg" href="{% url 'polls:index' %}">Take A Poll</a></h2>
+
+
+
+    <p><a href="{% url 'usermanager:logout' %}">logout</a></p>
+</div>
+{% else %}
+<div class="jumbotron text-center ">
+    <h1>Welcome to Polls App</h1>
+</div>
+<div class="text-center">
+    <a class="btn btn-primary btn-md" href="{% url 'usermanager:login_page' %}">Login</a>
+
+    <a class="btn btn-primary btn-md" href="{% url 'usermanager:signup' %}">Signup</a>
+</div>
+{% endif %}
+
+{% endblock %}
