@@ -1,0 +1,56 @@
+{% extends 'polls/base.html' %}
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+
+{% block content %}
+
+<div class="container">
+
+    <div class="jumbotron">
+        <h1>Polls App</h1>
+        <h2>Question Details</h2>
+    </div>
+
+
+
+<h3>{{ question.question_text }}</h3>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+{% if answer %}
+    <div class="alert alert-info"><p>You Have already voted for this Poll</p></div>
+    {% endif %}
+
+<form action="{% url 'polls:vote' question.id %}" method="post">
+{% csrf_token %}
+    <div class="form-group">
+    {% for choice in question.choice_set.all %}
+     {% if answer %}
+     <div class="radio">
+    <label for="choice{{ forloop.counter }}">
+        {% if choice.id == answer.choice_id %}
+        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" disabled checked>
+        {{ choice.choice_text }}</label>
+         {% else %}
+         <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" disabled checked>
+         {{ choice.choice_text }}</label>
+         {% endif %}
+     {% else %}
+    <div class="radio">
+    <label for="choice{{ forloop.counter }}">
+        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">{{ choice.choice_text }}</label>
+    {% endif %}
+    </div>
+
+    {% endfor %}
+    </div>
+    {% if answer %}
+    <input class="btn btn-default btn-md" type="submit" value="Vote" disabled />
+    {% else %}
+    <input class="btn btn-default btn-md" type="submit" value="Vote" />
+    {% endif %}
+
+</form>
+
+</div>
+{% endblock %}

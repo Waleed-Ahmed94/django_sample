@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+
+<nav class="navbar navbar-inverse" style="height : 60px">
+  <div class="container-fluid" style="margin-left: 10%">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{% url 'usermanager:home' %}">PollsApp</a>
+    </div>
+    <ul class="nav navbar-nav" style="font-size: 16px">
+      <li><a href="{% url 'polls:index' %}">Polls</a></li>
+    </ul>
+  </div>
+</nav>
+
+{% if messages %}
+<div class="text-center">
+    {% for message in messages %}
+<div class="alert alert-warning">
+    <p>{{ message }}</p>
+</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+{% block content %}
+{% endblock %}
