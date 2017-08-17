@@ -5,6 +5,8 @@ from django.template import loader
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.contrib import messages
+from usermanager.models import PollUser
 #from django.views import generic
 
 # Create your views here.
@@ -33,6 +35,7 @@ def login_required(func):
             else:
                 return func(request)
         else:
+            messages.add_message(request, messages.WARNING, "Login Required")
             return HttpResponseRedirect(reverse("usermanager:home"))
     return function_wrapper
 
@@ -49,7 +52,8 @@ def detail(request, pk):
 @login_required
 def results(request, pk):
     question = Question.objects.get(pk=pk)
-    return render(request, "polls/results.html", {'question':question})
+    user = PollUser.objects.get(pk= request.session['userid'])
+    return render(request, "polls/results.html", {'question':question, 'user':user})
 
 
 @login_required

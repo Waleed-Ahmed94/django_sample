@@ -57,7 +57,7 @@ def create_user(request):
             User.username = request.POST['username']
             User.password = request.POST['password']
             User.save()
-            return HttpResponseRedirect(reverse('usermanager:login'))
+            return HttpResponseRedirect(reverse('usermanager:login_page'))
 
     else:
         return render(request, 'usermanager/home.html')

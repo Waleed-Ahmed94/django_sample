@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import datetime
 from django.db import models
 from django.utils import timezone
+from usermanager.models import PollUser
 
 class Question(models.Model):
 
@@ -26,3 +27,9 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0)
 
 # Create your models here.
+class Answer(models.Model):
+
+    user_id = models.ForeignKey(PollUser, on_delete=models.CASCADE)
+    choice_id = models.IntegerField()
+    question_id = models.IntegerField()
+
