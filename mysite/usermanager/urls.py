@@ -10,5 +10,4 @@ urlpatterns = [
     url(r'^create/$', views.create_user, name='create_user'),
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, name='logout'),
-    #url(r'^polls/', include("polls.urls"))
 ]
