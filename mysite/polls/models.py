@@ -30,6 +30,6 @@ class Choice(models.Model):
 class Answer(models.Model):
 
     user_id = models.ForeignKey(PollUser, on_delete=models.CASCADE)
-    choice_id = models.IntegerField()
-    question_id = models.IntegerField()
+    choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
 

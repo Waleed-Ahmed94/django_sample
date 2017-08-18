@@ -30,7 +30,7 @@ def detail(request, pk):
     question = Question.objects.get(pk=pk)
     user = PollUser.objects.get(pk=request.session['userid'])
     try:
-        answer = user.answer_set.get(question_id=pk)
+        answer = user.answer_set.get(question=question)
     except (KeyError, Answer.DoesNotExist):
         return render(request, "polls/detail.html", {'question': question})
     else:
@@ -56,7 +56,7 @@ def vote(request, question_id):
     else:
         selected_choice.votes += 1
         user = PollUser.objects.get(pk=request.session['userid'])
-        user.answer_set.create(question_id=question_id, choice_id=selected_choice.id)
+        user.answer_set.create(question=question, choice=selected_choice)
         selected_choice.save()
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
